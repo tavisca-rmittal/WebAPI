@@ -11,11 +11,7 @@ pipeline{
             defaultValue: "HiHelloApi.sln",
             description: "SOLUTION_PATH"
         )
-        string(
-            name: "DOTNETCORE_VERSION",
-            defaultValue: "2.2",
-            description: "Version"
-        )
+        
         string(
             name: "TEST_SOLUTION_PATH",
             defaultValue: "HiHelloApi.Tests/HiHelloApi.Tests.csproj",
@@ -78,7 +74,7 @@ pipeline{
                 expression{params.RELEASE_ENVIRONMENT == "Publish"}
             }
             steps {
-                powershells '''
+                powershell '''
                 zip zipFile: 'publish.zip', archive: false, dir: 'WebApi/HiHelloApi/bin/Debug/netcoreapp2.2/publish'
                 archiveArtifacts artifacts: 'publish.zip', fingerprint: true
                 '''
