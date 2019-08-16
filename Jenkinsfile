@@ -54,7 +54,7 @@ pipeline{
                 expression{params.RELEASE_ENVIRONMENT == "Test" || params.RELEASE_ENVIRONMENT == "Publish"}
             }
             steps{
-                sh '''
+                powershell '''
                     echo '====================Build Project Start ================'
                     dotnet test ${TEST_SOLUTION_PATH}
                     echo '=====================Build Project Completed============'
@@ -66,7 +66,7 @@ pipeline{
                 expression{params.RELEASE_ENVIRONMENT == "Publish"}
             }
             steps{
-                sh '''
+                powershell '''
                     echo '====================Build Project Start ================'
                     dotnet publish ${PROJECT_PATH}
                     echo '=====================Build Project Completed============'
@@ -78,7 +78,7 @@ pipeline{
                 expression{params.RELEASE_ENVIRONMENT == "Publish"}
             }
             steps {
-                sh '''
+                powershells '''
                 zip zipFile: 'publish.zip', archive: false, dir: 'WebApi/HiHelloApi/bin/Debug/netcoreapp2.2/publish'
                 archiveArtifacts artifacts: 'publish.zip', fingerprint: true
                 '''
